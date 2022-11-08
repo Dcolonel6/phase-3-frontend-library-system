@@ -1,26 +1,39 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 const BooksDetails = () => {
+  let { id } = useParams();
+  const [book, setBook] = React.useState({});
+  console.log(book);
+
+  React.useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = () => {
+    fetch(`http://localhost:9292/books/${id}`)
+      .then((response) => response.json())
+      .then((data) => setBook(data));
+  };
   return (
-    <div>
-      <Card className="text-center">
-        <Card.Header>If Tomorrow Comes</Card.Header>
+    <div className="row align-items-center">
+      <Card className="col-md-6 offset-md-3 my-auto" style={{ maxHeight: '28rem' }}>
+        <Card.Img
+          variant="top"
+          src={book.image ? book.image : "../download.svg"}
+        />
         <Card.Body>
-          <Card.Title>
-            By: <span>Sidney Sheldon</span>
-          </Card.Title>
-          <Card.Text>
-            "It is a story portraying an ordinary woman who is framed by the
-            Mafia, her subsequent quest for vengeance towards them and her later
-            life as a con artist."
-          </Card.Text>
-          <Button variant="primary">Borrow</Button>
+          <Card.Title>{book.title}</Card.Title>
+          <Card.Text>{book.description}</Card.Text>
+          <Button
+            variant={book.available ? "primary" : "secondary"}
+            disabled={!book.available}
+          >
+            Borrow
+          </Button>
         </Card.Body>
-        <Card.Footer className="text-muted">
-          2 days left to return the book
-        </Card.Footer>
       </Card>
     </div>
   );
