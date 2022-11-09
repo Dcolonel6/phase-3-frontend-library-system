@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import {FactoryServerCommunication} from './Utilies/server';
+import {FactoryServerCommunication} from './Utilities/server';
 
 const BooksDetails = () => {
   let { id } = useParams();
