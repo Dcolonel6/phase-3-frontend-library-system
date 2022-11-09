@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -15,17 +15,11 @@ function App() {
       <BrowserRouter>
       <div className="">
         <NavBar />
-        <Switch>
-          <Route path="/" exact>
-            <Login/>
-          </Route>
-          <Route path="/books/" exact>
-            <BooksContainer />
-          </Route> 
-          <Route path="/books/:id" exact>
-            <BooksDetails/>
-          </Route>           
-        </Switch>
+        <Routes>
+          <Route path="/" exact element={<Login/>} />
+          <Route path="/books" exact element={<BooksContainer/>} />
+          <Route path="/books/:id" exact element={<BooksDetails/>}/>         
+        </Routes>
       </div>
     </BrowserRouter>
     </div>

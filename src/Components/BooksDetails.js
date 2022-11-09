@@ -1,12 +1,12 @@
 import React from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {FactoryServerCommunication} from './Utilies/server';
 
 const BooksDetails = () => {
   let { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [book, setBook] = React.useState({});
   console.log(book);
 
@@ -19,7 +19,7 @@ const BooksDetails = () => {
   };
   const deleteBook = (evnt) => {
     FactoryServerCommunication(`/books/${id}`,"DELETE")()
-    history.push("/books/");
+   navigate("/books/");
   }
   const editBook = (evnt) => {
     FactoryServerCommunication(`/books/${id}`,"PATCH")()
