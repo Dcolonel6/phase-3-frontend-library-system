@@ -18,9 +18,13 @@ const BooksDetails = () => {
     FactoryServerCommunication(`/books/${id}`,"GET")(setBook)
   };
   const deleteBook = (evnt) => {
-    FactoryServerCommunication(`/books/${id}`,"Delete")()
+    FactoryServerCommunication(`/books/${id}`,"DELETE")()
     history.push("/books/");
   }
+  const editBook = (evnt) => {
+    FactoryServerCommunication(`/books/${id}`,"PATCH")()
+  }
+
   return (
     <div className="row align-items-center my-3">
       <div className="col-md-6 offset-md-3 my-3 d-flex justify-content-end">
