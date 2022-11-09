@@ -6,7 +6,7 @@ function NavBar() {
     <div>
       <Nav fill variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Nav.Link href="/home">Books</Nav.Link>
+          <Nav.Link href="/books">Books</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="link-1">Members</Nav.Link>
