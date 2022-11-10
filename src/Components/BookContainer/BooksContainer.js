@@ -43,19 +43,17 @@ const BooksContainer = () => {
       );
     });
   };
-  const addBook = () =>{
-
-  }
   const handleShowModal = (status) => {    
     setshowModal(status)
   };
-  const handleSubmit = (evnt) => {
-    evnt.preventDefault()
-    const { target } = evnt
-    target.reset()
-    handleShowModal(false)    
-
-  }
+  const handleSubmit = (formData) => {    
+    handleShowModal(false) 
+    formData.available = true  
+    formData.category_id = categories[Math.floor(Math.random()*categories.length)].id
+    FactoryServerCommunication("/books", "POST",formData)()
+  };
+   
+  
 
   const listOfBookCards = selectedBooks.map((book) => {
     return (

@@ -3,10 +3,23 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 
 const AddBook = ({ handleShowModal, show, handleSubmit }) => {
+    const [formData,setFormData] = React.useState({})
+
+
+    const handleChange = (evnt) => {
+        const { target } = evnt
+        setFormData(currentForm => {
+            return {
+                ...currentForm,
+                [target.name]:target.value
+            }
+        })
+
+    }
   return (
     <Modal
       size="lg"
-      show={true}
+      show={show}
       onHide={() => handleShowModal(false)}
       aria-labelledby="addNewBook"
     >
@@ -22,6 +35,8 @@ const AddBook = ({ handleShowModal, show, handleSubmit }) => {
               className="form-control"
               id="title"
               name="title"
+              value={formData.title}
+              onChange={handleChange}
             />
           </div>
           <div className="form-group">
@@ -31,23 +46,30 @@ const AddBook = ({ handleShowModal, show, handleSubmit }) => {
               className="form-control"
               id="author"
               name="author"
+              value={formData.author}
+              onChange={handleChange}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="image">Author</label>
+            <label htmlFor="image">Image Url</label>
             <input
               type="text"
               className="form-control"
               id="image"
               name="image"
+              value={formData.image}
+              onChange={handleChange}
             />
           </div>
           <div className="form-group">
             <label htmlFor="description">Description</label>
             <textarea
               className="form-control"
-              id="exampleFormControlTextarea1"
+              id="description"
+              name="description"
               rows="3"
+              value={formData.description}
+              onChange={handleChange}
             ></textarea>
           </div>          
         </form>
@@ -56,7 +78,7 @@ const AddBook = ({ handleShowModal, show, handleSubmit }) => {
           <Button variant="secondary" onClick={() => handleShowModal(false)}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={() => handleSubmit(formData)}>
             Save Changes
           </Button>
         </Modal.Footer>
