@@ -5,8 +5,10 @@ import './App.css';
 
 import NavBar from './Components/NavBar';
 import Login from './Components/login/Login';
-import BooksContainer from './Components/BooksContainer'
-import BooksDetails from './Components/BooksDetails';
+import BooksContainer from './Components/BookContainer/BooksContainer'
+import BooksDetails from './Components/BookDetails/BooksDetails';
+import Members from "./Components/Members/Members";
+import ProtectedRoute from "./Components/ProtectedRoute";
 import { useEffect } from 'react';
 
 function App() {
@@ -26,9 +28,13 @@ function App() {
       <div className="">
         <NavBar />
         <Routes>
-          <Route path="/" exact element={<Login/>} />
+          <Route path="/"  element={<Login/>} />
           <Route path="/books" exact element={<BooksContainer/>} />
-          <Route path="/books/:id" exact element={<BooksDetails/>}/>         
+          <Route path="/books/:id" exact element = {<BooksDetails/>} />
+          <Route path="/members/" exact element = {<Members/>} />
+          {/* <ProtectedRoute path="/books/:id" exact element={<BooksDetails/>}/> 
+          <ProtectedRoute path="/members/" exact element={<Members/>}/>  */}
+          
         </Routes>
       </div>
     </div>
