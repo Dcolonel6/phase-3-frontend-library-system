@@ -38,8 +38,8 @@ export function FactoryServerCommunication(url, method, body) {
         if (cb){
             cb(data);
         }
-        console.log(`${BASE_URL}${url}`, method)
-        console.log(data)
+        //console.log(`${BASE_URL}${url}`, method)
+        // console.log(data)
     });  
     
   };

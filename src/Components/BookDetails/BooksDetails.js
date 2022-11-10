@@ -1,29 +1,31 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import {FactoryServerCommunication} from './Utilities/server';
+import EditBook from "./EditBook";
+import {FactoryServerCommunication} from '../Utilities/server';
 
 const BooksDetails = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = React.useState({});
-  console.log(book);
-
+  const [show, setShow] = React.useState(false);
   React.useEffect(() => {
     fetchBooks();
   }, []);
+  console.log(book)
 
   const fetchBooks = () => {
     FactoryServerCommunication(`/books/${id}`,"GET")(setBook)
   };
+
   const deleteBook = (evnt) => {
     FactoryServerCommunication(`/books/${id}`,"DELETE")()
    navigate("/books/");
-  }
-  const editBook = (evnt) => {
-    FactoryServerCommunication(`/books/${id}`,"PATCH")()
-  }
+  };
+
+  const handleShowModal = (status) => {    
+    setShow(status)
+  };
+  
 
   return (
     <div className="row align-items-center my-3">
@@ -33,7 +35,9 @@ const BooksDetails = () => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          <button type="button" className="btn btn-danger">
+          <EditBook show={show} updateModal = {handleShowModal} book={book}/>
+
+          <button type="button" className="btn btn-danger" onClick={() => handleShowModal(!show)}>
             Edit
           </button>
           <button type="button" className="btn btn-warning" onClick={deleteBook}>
@@ -44,10 +48,9 @@ const BooksDetails = () => {
       <div className="card col-md-6 offset-md-3" style={{ width: "49%" }}>
         <img className="card-img-top" src={book.image} alt="Card image cap" />
         <div className="card-body">
-          <h5 className="card-title">Card title</h5>
+          <h5 className="card-title">{`${book.title} By ${book.author}`} </h5>
           <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+           {book.description}
           </p>
           <button
             className={`btn ${
