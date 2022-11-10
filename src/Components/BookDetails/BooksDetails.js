@@ -1,7 +1,5 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import EditBook from "./EditBook";
 import {FactoryServerCommunication} from '../Utilities/server';
 
@@ -34,7 +32,7 @@ const BooksDetails = () => {
     setShow(status)
   };
   const borrowBook = (evnt) => {
-    alert(user)
+    //alert(user)
 		FactoryServerCommunication(`/borrows`, "POST", {
 			member_id: user.id,
 			book_id: id,

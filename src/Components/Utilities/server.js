@@ -39,7 +39,7 @@ export function FactoryServerCommunication(url, method, body) {
             cb(data);
         }
         //console.log(`${BASE_URL}${url}`, method)
-        // console.log(data)
+        console.log(data)
     });  
     
   };
