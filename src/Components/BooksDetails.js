@@ -27,11 +27,9 @@ const BooksDetails = () => {
 	};
 
 	const borrowBook = (evnt) => {
-    alert(user)
 		FactoryServerCommunication(`/borrows`, "POST", {
 			member_id: user.id,
 			book_id: id,
-			// given_by_id: sessionStorage.getItem("user")?.id,
 			borrowed_on: new Date().toISOString().slice(0, 10),
 			due_date: new Date().toISOString().slice(0, 10),
 		})(() => {
