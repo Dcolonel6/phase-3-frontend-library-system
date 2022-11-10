@@ -1,28 +1,38 @@
 import React from "react";
-import Nav from "react-bootstrap/Nav";
+import Container from 'react-bootstrap/Container';
+import {useNavigate} from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar() {
+  const user = sessionStorage.getItem("user");
+  const navigate = useNavigate();
+  const logout = () => {
+    sessionStorage.removeItem("user");
+    navigate("/");
+  }
+
   return (
-    <div>
-      <Nav fill variant="tabs" defaultActiveKey="/">
-        <Nav.Item>
-          <Nav.Link href="/">Login</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/books">Books</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-1" href="/members">
-            Members
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2" href="/borrows">
-            Borrows
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
-    </div>
+    <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
+      <Container>
+        <Navbar.Brand href="/books">E-LiBRARY</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link href="/books">Books</Nav.Link>
+            {user?.is_librarian &&<NavDropdown title="Manage" id="basic-nav-dropdown">
+              <NavDropdown.Item bg="dark"  href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Repair
+              </NavDropdown.Item> 
+            </NavDropdown>}
+           {!user&& <Nav.Link href="/">Login</Nav.Link>}
+           {user&& <Nav.Link href="#" onClick={logout}>Logout</Nav.Link>}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import EditBook from "./EditBook";
 import {FactoryServerCommunication} from '../Utilities/server';
 
@@ -7,11 +9,14 @@ const BooksDetails = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = React.useState({});
+  const [user, setUser] = React.useState(null);
   const [show, setShow] = React.useState(false);
+
   React.useEffect(() => {
     fetchBooks();
+    setUser(sessionStorage.getItem("user"));
   }, []);
-  console.log(book)
+  
 
   const fetchBooks = () => {
     FactoryServerCommunication(`/books/${id}`,"GET")(setBook)
@@ -21,10 +26,26 @@ const BooksDetails = () => {
     FactoryServerCommunication(`/books/${id}`,"DELETE")()
    navigate("/books/");
   };
+  const editBook = (evnt) => {
+		FactoryServerCommunication(`/books/${id}`, "PATCH")();
+	};
 
   const handleShowModal = (status) => {    
     setShow(status)
   };
+  const borrowBook = (evnt) => {
+    alert(user)
+		FactoryServerCommunication(`/borrows`, "POST", {
+			member_id: user.id,
+			book_id: id,
+			// given_by_id: sessionStorage.getItem("user")?.id,
+			borrowed_on: new Date().toISOString().slice(0, 10),
+			due_date: new Date().toISOString().slice(0, 10),
+		})(() => {
+			FactoryServerCommunication(`/books/${id}`, "PATCH", { available: 0 })();
+			navigate("/books");
+		});
+	};
   
 
   return (
@@ -46,22 +67,23 @@ const BooksDetails = () => {
         </div>
       </div>
       <div className="card col-md-6 offset-md-3" style={{ width: "49%" }}>
-        <img className="card-img-top" src={book.image} alt="Card image cap" />
-        <div className="card-body">
-          <h5 className="card-title">{`${book.title} By ${book.author}`} </h5>
-          <p className="card-text">
-           {book.description}
-          </p>
-          <button
-            className={`btn ${
-              book.available ? "btn-primary" : "btn-secondary"
-            }`}
-            disabled={!book.availabe}
-          >
-            Borrow
-          </button>
-        </div>
-      </div>
+				<img className="card-img-top" src={book.image} alt="Card image cap" />
+				<div className="card-body">
+					<h3 className="card-title">
+						{book.title} &nbsp; by &nbsp; {book.author}
+					</h3>
+					<p className="card-text">{book.description}.</p>
+					<button
+						className={`btn ${
+							book.available ? "btn-primary" : "btn-secondary"
+						}`}
+						disabled={!book.available}
+						onClick={borrowBook}
+					>
+						Borrow
+					</button>
+				</div>
+			</div>
     </div>
   );
 };
