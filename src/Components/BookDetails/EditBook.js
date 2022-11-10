@@ -1,26 +1,20 @@
 import React from "react";
-//import{useNavigate, createSearchParams} from 'react-router-dom';
+import{useNavigate} from 'react-router-dom';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FactoryServerCommunication } from "../Utilities/server";
 
 const EditBook = ({ show, updateModal, book }) => {
   const [availability, setAvailability] = React.useState(true);
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   function handleSubmit(evnt) {   
     updateModal(!show);    
     FactoryServerCommunication(`/books/${book.id}`, "PATCH", {
       available: availability
     })();
-  //   navigate({
-  //     pathname: "/books/",
-  //     search: createSearchParams({
-  //         id: book.id,
-  //         status:availability
-  //     }).toString()
-  // });
-    //navigate("/books/")
+  
+    navigate("/books/")
   }
 
   const handleChange = (evnt) => {
