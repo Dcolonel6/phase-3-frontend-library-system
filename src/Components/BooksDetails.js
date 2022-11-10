@@ -10,9 +10,6 @@ const BooksDetails = () => {
   const [user, setUser] = React.useState(null);
 	const [book, setBook] = React.useState({});
 	// console.log(book);
-
-
-
 	React.useEffect(() => {
 		fetchBook();
     setUser(sessionStorage.getItem("user"));
