@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
   const user = sessionStorage.getItem("user");
   if (!user) {
-    // navigate("/");
+    navigate("/");
   }
   
   }, [])

@@ -1,14 +1,16 @@
 import React from "react";
 import Container from 'react-bootstrap/Container';
+import {useNavigate} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar() {
   const user = sessionStorage.getItem("user");
+  const navigate = useNavigate();
   const logout = () => {
     sessionStorage.removeItem("user");
-    window.location.href = "/";
+    navigate("/");
   }
 
   return (
@@ -25,7 +27,7 @@ function NavBar() {
                 Repair
               </NavDropdown.Item> 
             </NavDropdown>}
-           {!user&& <Nav.Link href="/login">Login</Nav.Link>}
+           {!user&& <Nav.Link href="/">Login</Nav.Link>}
            {user&& <Nav.Link href="#" onClick={logout}>Logout</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
