@@ -2,12 +2,16 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { NavLink } from "react-router-dom";
 import { FactoryServerCommunication } from "../Utilities/server";
+import AddBook from "./AddBook";
 //import BooksDetails from "./BooksDetails";
 
 const BooksContainer = () => {
   const [allBooks, setBooks] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [filterStatus, setFilterStatus] = React.useState("all");
+  const [showModal, setshowModal] = React.useState(false);
+  
+
   console.log(`filter status ${filterStatus}`);
 
   React.useEffect(() => {
@@ -24,7 +28,7 @@ const BooksContainer = () => {
   };
 
   const selectedBooks = allBooks.filter(({ available }) => {
-    debugger;
+    
     if (filterStatus === "all") {
       return true;
     } else if (filterStatus === "available") {
@@ -39,6 +43,19 @@ const BooksContainer = () => {
       );
     });
   };
+  const addBook = () =>{
+
+  }
+  const handleShowModal = (status) => {    
+    setshowModal(status)
+  };
+  const handleSubmit = (evnt) => {
+    evnt.preventDefault()
+    const { target } = evnt
+    target.reset()
+    handleShowModal(false)    
+
+  }
 
   const listOfBookCards = selectedBooks.map((book) => {
     return (
@@ -98,9 +115,10 @@ const BooksContainer = () => {
           </form>
         </div>
         <div className="col-md-4  my-3">
-          <button type="button" class="btn btn-primary">
+          <button type="button" className="btn btn-primary" onClick={() => handleShowModal(true)}>
             Add Book +
           </button>
+          <AddBook handleShowModal ={handleShowModal} show={showModal} handleSubmit={handleSubmit}/>
         </div>
       </div>
       <div className="row">{listOfBookCards}</div>
