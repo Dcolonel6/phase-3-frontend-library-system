@@ -25,12 +25,16 @@ const BooksDetails = () => {
    navigate("/books/");
   };
   const editBook = (evnt) => {
-		FactoryServerCommunication(`/books/${id}`, "PATCH")();
+		FactoryServerCommunication(`/books/${id}`, "PATCH")(updateBook);
 	};
 
   const handleShowModal = (status) => {    
     setShow(status)
   };
+  const updateBook = (updatedBook) => {
+    setBook(updatedBook)
+  }
+
   const borrowBook = (evnt) => {
     //alert(user)
 		FactoryServerCommunication(`/borrows`, "POST", {
@@ -40,7 +44,7 @@ const BooksDetails = () => {
 			borrowed_on: new Date().toISOString().slice(0, 10),
 			due_date: new Date().toISOString().slice(0, 10),
 		})(() => {
-			FactoryServerCommunication(`/books/${id}`, "PATCH", { available: 0 })();
+			FactoryServerCommunication(`/books/${id}`, "PATCH", { available: false })(updateBook);
 			navigate("/books");
 		});
 	};

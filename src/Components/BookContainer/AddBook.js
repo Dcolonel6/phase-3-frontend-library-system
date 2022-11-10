@@ -3,7 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 
 const AddBook = ({ handleShowModal, show, handleSubmit }) => {
-    const [formData,setFormData] = React.useState({})
+    const [formData,setFormData] = React.useState({
+      title:"",
+      author:"",
+      description: "",
+      image:""
+    })
 
 
     const handleChange = (evnt) => {
