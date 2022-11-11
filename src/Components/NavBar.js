@@ -21,12 +21,12 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link href="/books">Books</Nav.Link>
-            {user?.is_librarian &&<NavDropdown title="Manage" id="basic-nav-dropdown">
+            {/* {user?.is_librarian &&<NavDropdown title="Manage" id="basic-nav-dropdown">
               <NavDropdown.Item bg="dark"  href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Repair
               </NavDropdown.Item> 
-            </NavDropdown>}
+            </NavDropdown>} */}
            {!user&& <Nav.Link href="/">Login</Nav.Link>}
            {user&& <Nav.Link href="#" onClick={logout}>Logout</Nav.Link>}
           </Nav>
